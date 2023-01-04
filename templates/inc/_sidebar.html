@@ -1,0 +1,19 @@
+{% load news_tags %}
+{% comment %}
+<div class="list-group">
+    {% get_list_categories as categories %}
+    {% for category in categories %}
+    <a
+      href="{% url 'category' category.pk %}"
+      class="list-group-item list-group-item-action"
+      aria-current="true"
+    >
+      {{ category.title }}
+    </a>
+    {% endfor %}
+  </div>
+
+  {% show_categories arg2="user" %}
+  <br>
+  {% endcomment %}
+  {% show_categories %}
