@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 
 from .models import News, Category
 from .forms import NewsForm
@@ -15,6 +16,7 @@ class HomeNews(MyMixin, ListView):
     context_object_name = 'news'
     mixin_prop = 'hello world'
     # extra_context = {'title': 'Главная'}
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -31,6 +33,7 @@ class NewsByCategory(MyMixin, ListView):
     template_name = 'news/home_news_list.html'
     context_object_name = 'news'
     allow_empty = False
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

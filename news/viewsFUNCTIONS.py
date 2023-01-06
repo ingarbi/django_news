@@ -1,8 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator
 
 from .models import News, Category
 from .forms import NewsForm
 # Create your views here.
+
+#Pagination in function
+def test(request):
+    objects = ['john', 'paul', 'george', 'ringo','john2', 'paul2', 'george2', 'ringo2']
+    paginator = Paginator(objects, 2)
+    page_num = request.GET.get('page', 1)
+    page_objects = paginator.get_page(page_num) #if we use method .page instead of .get_page if page=5 doest exists we will get exception"no results"
+    return render(request, 'news/test.html', {'page_obj': page_objects})
 
 
 def index(request):
