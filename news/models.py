@@ -8,7 +8,7 @@ class News(models.Model):
     content = models.TextField(blank=True, verbose_name='Контент')
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name='Создан')
-    created_at = models.DateTimeField(
+    updated_at = models.DateTimeField(
         auto_now=True, verbose_name='Обновлено')
     photo = models.ImageField(
         upload_to='photos/%Y/%m/%d/', verbose_name='Фото', default='ava.jpg')
@@ -16,7 +16,8 @@ class News(models.Model):
         default=True, verbose_name='Опубликовано')
     category = models.ForeignKey(
         'Category', on_delete=models.PROTECT,
-        verbose_name='Категория')
+        verbose_name='Категория', related_name='get_news')
+    views = models.IntegerField(default=0)
 
     def my_func(self):
         return "Hello world"

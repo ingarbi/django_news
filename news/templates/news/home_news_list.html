@@ -9,6 +9,11 @@
 {% endblock sidebar %}
 
 {% block content %}
+
+{% comment %}
+{{ mixin_prop }}
+{% endcomment %}
+
     {% for item in news %}
     <div class="card mb-3">
       <div class="card-header">Категория: <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a></div>

@@ -9,9 +9,11 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
+          {% if request.user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'add_news' %}">Add news</a>
           </li>
+          {% endif %}
           </ul>
       </div>
     </div>
