@@ -6,9 +6,10 @@ from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.core.mail import send_mail
 
 from .models import News, Category
-from .forms import NewsForm, UserRegisterForm, UserLoginForm
+from .forms import NewsForm, UserRegisterForm, UserLoginForm, ContactForm
 from .utils import MyMixin
 
 # Create your views here.
@@ -43,9 +44,35 @@ def user_login(request):
         form = UserLoginForm()
     return render(request, 'news/login.html', {"form": form})
 
+
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+
+def test(request):
+    if request.method == 'POST':
+        form = ContactForm(data=request.POST)
+        if form.is_valid():
+            mail = send_mail(
+                form.cleaned_data['subject'],
+                form.cleaned_data['content'],
+                'ingarbi006@elasticemail.com',
+                ['ingarbi006@gmail.com'],
+                fail_silently=False
+            )
+            if mail:
+                messages.success(request, "Mail was sent successfully")
+                return redirect('test')
+            else:
+                messages.error(request, "Mail was not sent")
+        else:
+            messages.error(request, "Mail was not sent")
+    else:
+        form = ContactForm()
+
+    return render(request, 'news/test.html', {"form": form})
+
 
 
 class HomeNews(MyMixin, ListView):

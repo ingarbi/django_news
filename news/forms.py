@@ -7,11 +7,24 @@ import re
 from .models import News
 
 
+class ContactForm(forms.Form):
+    subject = forms.CharField(
+                    label="Topic:",
+                    widget=forms.TextInput(attrs={
+                        "class": "form-control"
+                    }))
+    content = forms.CharField(
+                    label="Text:",
+                    widget=forms.Textarea(attrs={
+                        "class": "form-control", "rows": 5
+                    }))
+
+
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
                     label="Имя пользователя:",
                     widget=forms.TextInput(attrs={
-                        "class": "form-control", "autofocus": '-1'
+                        "class": "form-control"
                     }))
     password = forms.CharField(
                     label="Пароль:",
@@ -25,7 +38,7 @@ class UserRegisterForm(UserCreationForm):
                     label="Имя пользователя:",
                     help_text='Name consists of 150 letters only',
                     widget=forms.TextInput(attrs={
-                        "class": "form-control", "autofocus": '-1'
+                        "class": "form-control", 
                     }))
     password1 = forms.CharField(
                     label="Пароль:",
