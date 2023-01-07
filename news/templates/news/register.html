@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+Add news :: {{ block.super }}
+ {% endblock title %}
+
+{% block sidebar %}
+{% include 'inc/_sidebar.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+    
+<h1>Registration</h1>    
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary btn-block"> Registration </button>
+</form>
+
+{% endblock content %}
+
