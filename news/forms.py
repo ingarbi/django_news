@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.core.exceptions import ValidationError
 import re
+from captcha.fields import CaptchaField
 
 from .models import News
 
@@ -18,6 +19,7 @@ class ContactForm(forms.Form):
                     widget=forms.Textarea(attrs={
                         "class": "form-control", "rows": 5
                     }))
+    captcha = CaptchaField()
 
 
 class UserLoginForm(AuthenticationForm):

@@ -13,6 +13,28 @@ def test(request):
     page_objects = paginator.get_page(page_num) #if we use method .page instead of .get_page if page=5 doest exists we will get exception"no results"
     return render(request, 'news/test.html', {'page_obj': page_objects})
 
+def test(request):
+    if request.method == 'POST':
+        form = ContactForm(data=request.POST)
+        if form.is_valid():
+            mail = send_mail(
+                form.cleaned_data['subject'],
+                form.cleaned_data['content'],
+                'ingarbi006@elasticemail.com',
+                ['ingarbi006@gmail.com'],
+                fail_silently=False
+            )
+            if mail:
+                messages.success(request, "Mail was sent successfully")
+                return redirect('test')
+            else:
+                messages.error(request, "Mail was not sent")
+        else:
+            messages.error(request, "Mail was not sent")
+    else:
+        form = ContactForm()
+
+    return render(request, 'news/test.html', {"form": form})
 
 def index(request):
     news = News.objects.all()

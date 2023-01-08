@@ -50,7 +50,7 @@ def user_logout(request):
     return redirect('login')
 
 
-def test(request):
+def contact(request):
     if request.method == 'POST':
         form = ContactForm(data=request.POST)
         if form.is_valid():
@@ -63,7 +63,7 @@ def test(request):
             )
             if mail:
                 messages.success(request, "Mail was sent successfully")
-                return redirect('test')
+                return redirect('contact')
             else:
                 messages.error(request, "Mail was not sent")
         else:
